@@ -28,6 +28,7 @@ class Helper:
 configs: dict[str, Callable[[str, Path], None]] = {
     "wezterm": Helper.link_to_config,
     "yazi": Helper.link_to_config,
+    "nvim": Helper.link_to_config,
 }
 
 
