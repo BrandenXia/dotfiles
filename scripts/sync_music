@@ -1,9 +1,19 @@
+#!/usr/bin/env python3
+
 import hashlib
 import shutil
 from pathlib import Path
 
 music = Path.home() / "Music" / "Music" / "spotdl"
 dst = Path("/Volumes/Quasar/music")
+
+if not music.exists():
+    print("Error: Music directory not found")
+    exit(1)
+
+if not dst.exists():
+    print("Error: Destination directory not found")
+    exit(1)
 
 try:
     with open(dst / "hashes", "br") as f:
