@@ -3,7 +3,11 @@ local act = wezterm.action
 
 local config = {
 	font_size = 13,
-	font = wezterm.font("CaskaydiaCove Nerd Font Mono"),
+	font = wezterm.font_with_fallback({
+		"CaskaydiaCove Nerd Font Mono",
+		"JetBrainsMono Nerd Font Mono",
+		"Maple Mono",
+	}),
 	color_scheme = "Catppuccin Mocha",
 
 	use_fancy_tab_bar = false,
