@@ -6,8 +6,9 @@ import jmcomic
 
 args = sys.argv[1:]
 
-config = "jmdl_o/option.yml"
-option = jmcomic.create_option_by_file(config)
+option = jmcomic.JmOption.construct(
+    {"dir_rule": {"base_dir": "/Volumes/Quasar/comic/jm"}}, cover_default=True
+)
 
 for arg in args:
     print("Downloading %s..." % arg)
