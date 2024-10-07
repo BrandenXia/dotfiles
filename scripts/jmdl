@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+
+import sys
+
+import jmcomic
+
+args = sys.argv[1:]
+
+config = "jmdl_o/option.yml"
+option = jmcomic.create_option_by_file(config)
+
+for arg in args:
+    print("Downloading %s..." % arg)
+    jmcomic.download_album(arg, option)
+
+print("All downloads finished")
