@@ -86,6 +86,8 @@ for ep_name, ep_link in ep_links:
 
     download_links.append((ep_name, link))
 
+driver.quit()
+
 # make directory for anime if not exists
 anime_path = animes_path / anime_name
 if not anime_path.exists():
