@@ -9,6 +9,7 @@ from rich import print
 from rich.prompt import Prompt
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 
 animes_path = Path("/Volumes/Quasar/anime")
 
@@ -82,7 +83,10 @@ for ep_name, ep_link in ep_links:
 
     iframe = driver.find_element(By.CSS_SELECTOR, "#playleft > iframe")
     driver.switch_to.frame(iframe)
-    link = driver.find_element(By.TAG_NAME, "video").get_attribute("src")
+    wait = WebDriverWait(driver, 10)
+    link = wait.until(
+        lambda driver: driver.find_element(By.TAG_NAME, "video").get_attribute("src")
+    )
 
     download_links.append((ep_name, link))
 
