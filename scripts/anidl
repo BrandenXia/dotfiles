@@ -11,6 +11,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
+from utils import Cache
+
+
+cache = Cache("anidl")
 animes_path = Path("/Volumes/Quasar/anime")
 
 if not animes_path.exists():
@@ -77,8 +81,12 @@ ep_links = [
 
 # get download links
 print("Getting download links...")
-download_links = []
+download_links = cache.get(anime_name) or {}
 for ep_name, ep_link in ep_links:
+    if ep_name in download_links:
+        print(f"{ep_name} in cache, skipping...")
+        continue
+
     driver.get(ep_link)
 
     iframe = driver.find_element(By.CSS_SELECTOR, "#playleft > iframe")
@@ -88,7 +96,8 @@ for ep_name, ep_link in ep_links:
         lambda driver: driver.find_element(By.TAG_NAME, "video").get_attribute("src")
     )
 
-    download_links.append((ep_name, link))
+    download_links[ep_name] = link
+    cache.set(anime_name, download_links)
 
 driver.quit()
 
@@ -99,7 +108,7 @@ if not anime_path.exists():
 
 # download
 # TODO: multi-threaded download
-for ep_name, link in download_links:
+for ep_name, link in download_links.items():
     print(f"Downloading {ep_name}")
 
     file_name = anime_path / f"{ep_name}.mp4"
