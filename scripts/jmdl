@@ -7,21 +7,7 @@ import jmcomic
 args = sys.argv[1:]
 
 option = jmcomic.JmOption.construct(
-    {
-        "dir_rule": {"base_dir": "/Volumes/Quasar/comic/jm"},
-        "download": {"image": {"suffix": ".jpg"}},
-        "plugins": {
-            "after_album": [
-                {
-                    "plugin": "long_img",
-                    "kwargs": {
-                        "img_dir": "/Volumes/Quasar/comic/jm",
-                        "filename_rule": "Aname",
-                    },
-                }
-            ]
-        },
-    },
+    {"dir_rule": {"base_dir": "/Volumes/Quasar/comic/jm"}},
     cover_default=True,
 )
 
