@@ -61,7 +61,15 @@ items[int(index) - 1].click()
 
 # epsiode choices
 eps = driver.find_elements(By.XPATH, "//*[@id='playlist1']/ul/li/a")
-print("\n".join([f'{i+1}. "{ep.text}"' for i, ep in enumerate(eps)]))
+print(
+    "\n".join(
+        [
+            f'{i+1}. "{ep.text}"' + " \\[[italic blue]downloaded[/]]" * path.exists()
+            for i, ep in enumerate(eps)
+            if (path := animes_path / anime_name / f"{ep.text}.mp4")
+        ]
+    )
+)
 desired_ep = ask_with_cancel("Enter the number of the episode you want to download")
 try:
     if desired_ep == "all":
