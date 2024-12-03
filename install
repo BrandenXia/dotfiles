@@ -47,7 +47,7 @@ configs: dict[str, Callable[[str, Path], None]] = {
     "zsh": lambda _, dotfile_dir: Helper.add_to_zshrc(
         [
             "# common config from dotfiles",
-            f"for file in {dotfile_dir}/*.zsh; do",
+            f"for file in {dotfile_dir.absolute()}/*.zsh; do",
             "    source $file",
             "done",
         ],
