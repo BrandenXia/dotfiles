@@ -14,10 +14,10 @@ local deleted_keymaps = {
 }
 
 local added_keymaps = {
-  { "n", "<A-j>", "5j", { desc = "Down" } },
-  { "n", "<A-k>", "5k", { desc = "Up" } },
-  { "n", "<A-h>", "b", { desc = "Left" } },
-  { "n", "<A-l>", "w", { desc = "Right" } },
+  { { "n", "v" }, "<A-j>", "5j", { desc = "Down" } },
+  { { "n", "v" }, "<A-k>", "5k", { desc = "Up" } },
+  { { "n", "v" }, "<A-h>", "b", { desc = "Left" } },
+  { { "n", "v" }, "<A-l>", "w", { desc = "Right" } },
   { "i", "<A-j>", "<esc>5ji", { desc = "Down" } },
   { "i", "<A-k>", "<esc>5ki", { desc = "Up" } },
   { "i", "<A-h>", "<esc>bi", { desc = "Left" } },
