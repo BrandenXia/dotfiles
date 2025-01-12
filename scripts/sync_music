@@ -7,6 +7,9 @@ from pathlib import Path
 music = Path.home() / "Music" / "Music" / "spotdl"
 dst = Path("/Volumes/Quasar/music")
 
+extensions = (".mp3", ".m4a")
+check_exts = lambda m: m.suffix in extensions
+
 if not music.exists():
     print("Error: Music directory not found")
     exit(1)
@@ -22,7 +25,7 @@ except FileNotFoundError:
     hashes = {}
 
 new_hashes = {}
-for file in music.glob("*.mp3"):
+for file in filter(check_exts, music.glob("*")):
     if (
         file.name in hashes
         and hashes[file.name] == hashlib.md5(file.read_bytes()).hexdigest()
