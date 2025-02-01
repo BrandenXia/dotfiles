@@ -117,32 +117,22 @@ local config = {
 			action = act.QuitApplication,
 		},
 		{
-			key = "UpArrow",
-			mods = "SHIFT",
-			action = act.ScrollByLine(-5),
-		},
-		{
-			key = "DownArrow",
-			mods = "SHIFT",
-			action = act.ScrollByLine(5),
-		},
-		{
-			key = "UpArrow",
+			key = "k",
 			mods = "SUPER|SHIFT",
 			action = act.ScrollByPage(-0.5),
 		},
 		{
-			key = "DownArrow",
+			key = "j",
 			mods = "SUPER|SHIFT",
 			action = act.ScrollByPage(0.5),
 		},
 		{
-			key = "LeftArrow",
+			key = "h",
 			mods = "ALT",
 			action = act({ SendString = "\x1bb" }),
 		},
 		{
-			key = "RightArrow",
+			key = "l",
 			mods = "ALT",
 			action = act({ SendString = "\x1bf" }),
 		},
