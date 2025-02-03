@@ -126,16 +126,16 @@ local config = {
 			mods = "SUPER|SHIFT",
 			action = act.ScrollByPage(0.5),
 		},
-		{
-			key = "h",
-			mods = "ALT",
-			action = act({ SendString = "\x1bb" }),
-		},
-		{
-			key = "l",
-			mods = "ALT",
-			action = act({ SendString = "\x1bf" }),
-		},
+		-- {
+		-- 	key = "h",
+		-- 	mods = "ALT",
+		-- 	action = act({ SendString = "\x1bb" }),
+		-- },
+		-- {
+		-- 	key = "l",
+		-- 	mods = "ALT",
+		-- 	action = act({ SendString = "\x1bf" }),
+		-- },
 		{
 			key = "-",
 			mods = "CTRL",
