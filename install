@@ -41,7 +41,7 @@ class Helper:
 # edit to add more configs
 configs: dict[str, Callable[[str, Path], None]] = {
     "git": Helper.link_to_config,
-    "wezterm": Helper.link_to_config,
+    "kitty": Helper.link_to_config,
     "yazi": Helper.link_to_config,
     "nvim": Helper.link_to_config,
     "zsh": lambda _, dotfile_dir: Helper.add_to_zshrc(
