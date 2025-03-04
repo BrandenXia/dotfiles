@@ -1,7 +1,7 @@
 # From https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/magic-enter/magic-enter.plugin.zsh
 
 # Default commands
-: ${MAGIC_ENTER_COMMAND:="ls -lh ."}      # run anywhere else
+: ${MAGIC_ENTER_COMMAND:=" ls -lh ."}      # run anywhere else
 
 magic-enter() {
   # Only run MAGIC_ENTER commands when in PS1 and command line is empty
