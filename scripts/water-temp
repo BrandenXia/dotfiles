@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+
+import numpy as np
+
+from scipy.optimize import curve_fit
+from scipy.constants import Stefan_Boltzmann
+from numba import jit, float64
+
+from utils import Persistent
+
+persist = Persistent("water-temp")
+
+BOIL_TEMP_C = 100
+BOIL_TEMP_K = BOIL_TEMP_C + 273.15
+WATER_DENSITY = 1
+WATER_SPECIFIC_HEAT = 4186
+
+SURFACE_A = 0.214
+ROOM_TEMP_C = 25
+ROOM_TEMP_K = ROOM_TEMP_C + 273.15
+
+
+@jit(float64(float64[:], float64, float64), nopython=True)
+def pred_temp(i: tuple[float, float], h: float, eps: float) -> float:
+    """predict the final temperature of the water"""
+    vol, time = i
+    convection_loss = h * SURFACE_A * (BOIL_TEMP_C - ROOM_TEMP_C) * time
+    radiation_loss = (
+        eps * Stefan_Boltzmann * SURFACE_A * (BOIL_TEMP_K**4 - ROOM_TEMP_K**4) * time
+    )
+    delta_temp = (convection_loss + radiation_loss) / (
+        vol * WATER_DENSITY * WATER_SPECIFIC_HEAT
+    )
+    return BOIL_TEMP_C - delta_temp
+
+
+@jit(float64(float64[:], float64, float64), nopython=True)
+def get_time(i: tuple[float, float], h: float, eps: float) -> float:
+    """find the time it takes for the water to reach desired temperature"""
+    expected_temp, vol = i
+    delta_temp = BOIL_TEMP_C - expected_temp
+    heat_loss = vol * WATER_DENSITY * WATER_SPECIFIC_HEAT * delta_temp
+    convection_loss_rate = h * SURFACE_A * (BOIL_TEMP_C - ROOM_TEMP_C)
+    radiation_loss_rate = (
+        eps * Stefan_Boltzmann * SURFACE_A * (BOIL_TEMP_K**4 - ROOM_TEMP_K**4)
+    )
+    return heat_loss / (convection_loss_rate + radiation_loss_rate)
+
+
+vols = persist.get("vols") or []
+times = persist.get("times") or []
+temps = persist.get("temps") or []
+
+popt, _ = curve_fit(pred_temp, np.stack([vols, times]), temps)
+
+expected_temp = int(input("Enter the expected temperature: "))
+vol = float(input("Enter the volume of water: "))
+time = get_time((expected_temp, vol), *popt)
+time_in_mins, remain_secs = divmod(time, 60)
+print(f"Time to reach {expected_temp}°C: {time_in_mins:.0f}m {remain_secs:.0f}s")
+
+if actual_temp := input("Enter actual temperature: "):
+    vols.append(vol)
+    times.append(time)
+    temps.append(actual_temp)
+    persist.set("vols", vols)
+    persist.set("times", times)
+    persist.set("temps", temps)

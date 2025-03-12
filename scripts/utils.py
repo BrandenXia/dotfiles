@@ -4,21 +4,20 @@ from pathlib import Path
 from typing import Any
 
 
-class Cache:
-    def __init__(self, namespace: str):
-        cache_path = Path.home() / ".cache" / "scripts"
-        cache_path.mkdir(parents=True, exist_ok=True)
-        cache_file = cache_path / "cache_{}.json".format(namespace)
-        cache_file.touch(exist_ok=True)
+class Storage:
+    def __init__(self, namespace: str, path: Path) -> None:
+        path.mkdir(parents=True, exist_ok=True)
+        file = path / "cache_{}.json".format(namespace)
+        file.touch(exist_ok=True)
 
-        self.cache_fp = open(cache_file, "r+")
-        if self.cache_fp.read() == "":
-            self.cache_fp.write("{}")
-            self.cache_fp.seek(0)
+        self.fp = open(file, "r+")
+        if self.fp.read() == "":
+            self.fp.write("{}")
+            self.fp.seek(0)
 
     def read(self):
-        self.cache_fp.seek(0)
-        return json.load(self.cache_fp)
+        self.fp.seek(0)
+        return json.load(self.fp)
 
     def get(self, key: str) -> Any | None:
         return self.read().get(key, None)
@@ -26,10 +25,20 @@ class Cache:
     def set(self, key: str, value):
         cache = self.read()
         cache[key] = value
-        self.cache_fp.seek(0)
-        json.dump(cache, self.cache_fp)
+        self.fp.seek(0)
+        json.dump(cache, self.fp)
 
     def delete(self, key: str):
         cache = self.read()
         del cache[key]
-        json.dump(cache, self.cache_fp)
+        json.dump(cache, self.fp)
+
+
+class Cache(Storage):
+    def __init__(self, namespace: str) -> None:
+        super().__init__(namespace, Path.home() / ".cache" / "scripts")
+
+
+class Persistent(Storage):
+    def __init__(self, namespace: str) -> None:
+        super().__init__(namespace, Path.home() / ".config" / "scripts")
