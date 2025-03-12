@@ -51,6 +51,18 @@ vols = persist.get("vols") or []
 times = persist.get("times") or []
 temps = persist.get("temps") or []
 
+if any([len(vols) != len(times), len(vols) != len(temps)]):
+    raise ValueError("Data is inconsistent")
+elif not vols:
+    print("No data available")
+    vols.append(float(input("Enter the volume of water: ")))
+    times.append(float(input("Enter cool down time: ")))
+    temps.append(float(input("Enter temperature of the water: ")))
+    persist.set("vols", vols)
+    persist.set("times", times)
+    persist.set("temps", temps)
+
+
 popt, _ = curve_fit(pred_temp, np.stack([vols, times]), temps)
 
 expected_temp = int(input("Enter the expected temperature: "))
