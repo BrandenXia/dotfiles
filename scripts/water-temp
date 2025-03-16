@@ -4,7 +4,6 @@ import numpy as np
 
 from scipy.optimize import curve_fit
 from scipy.constants import Stefan_Boltzmann
-from numba import jit, float64
 
 from utils import Persistent
 
@@ -20,7 +19,6 @@ ROOM_TEMP_C = 25
 ROOM_TEMP_K = ROOM_TEMP_C + 273.15
 
 
-@jit(float64(float64[:], float64, float64), nopython=True)
 def pred_temp(i: tuple[float, float], h: float, eps: float) -> float:
     """predict the final temperature of the water"""
     vol, time = i
@@ -34,7 +32,6 @@ def pred_temp(i: tuple[float, float], h: float, eps: float) -> float:
     return BOIL_TEMP_C - delta_temp
 
 
-@jit(float64(float64[:], float64, float64), nopython=True)
 def get_time(i: tuple[float, float], h: float, eps: float) -> float:
     """find the time it takes for the water to reach desired temperature"""
     expected_temp, vol = i
@@ -53,8 +50,8 @@ temps = persist.get("temps") or []
 
 if any([len(vols) != len(times), len(vols) != len(temps)]):
     raise ValueError("Data is inconsistent")
-elif not vols:
-    print("No data available")
+elif not vols or len(vols) < 2:
+    print("Not enough data to predict temperature")
     vols.append(float(input("Enter the volume of water: ")))
     times.append(float(input("Enter cool down time: ")))
     temps.append(float(input("Enter temperature of the water: ")))
