@@ -3,6 +3,7 @@ setopt extended_history
 
 # editor
 export EDITOR=nvim
+export MANPAGER='nvim +Man!'
 
 # alias
 alias vi=nvim
