@@ -42,16 +42,25 @@ driver.get("https://qdm.plus/")
 search_box = driver.find_element(By.ID, "wd")
 search_box.send_keys(search_term)
 search_box.submit()
-items = driver.find_elements(By.XPATH, "//*[@id='searchList']/li/div/h4/a")
-print("\n".join([f'{i+1}. "{item.text}"' for i, item in enumerate(items)]))
 
 # selection choices
-index = ask_with_cancel(
-    "Enter the index of the item you want to download",
-    choices=[str(i + 1) for i in range(len(items))],
-    default="1",
-    show_choices=False,
-)
+index = "n"
+items = []
+while index == "n":
+    # display options
+    items = driver.find_elements(By.XPATH, "//*[@id='searchList']/li/div/h4/a")
+    print("\n".join([f'{i+1}. "{item.text}"' for i, item in enumerate(items)]))
+    index = ask_with_cancel(
+        "Enter the index of the item you want to download (press n to go to next page)",
+        choices=[str(i + 1) for i in range(len(items))].append("n"),
+        default="1",
+        show_choices=False,
+    )
+
+    if index == "n":  # if go to next page
+        next_btn = driver.find_element(By.XPATH, "/html/body/div[1]/div/div/ul/li[6]/a")
+        next_btn.click()
+
 selection = items[int(index) - 1]
 anime_name = selection.text
 items[int(index) - 1].click()
