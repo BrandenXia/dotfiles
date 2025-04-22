@@ -95,10 +95,12 @@ ep_links = [
 
 # get download links
 print("Getting download links...")
-download_links = cache.get(anime_name) or {}
+cached_links = cache.get(anime_name) or {}
+download_links = {}
 for ep_name, ep_link in ep_links:
-    if ep_name in download_links:
+    if ep_name in cached_links:
         print(f"{ep_name} in cache, skipping...")
+        download_links[ep_name] = cached_links[ep_name]
         continue
 
     driver.get(ep_link)
@@ -110,8 +112,8 @@ for ep_name, ep_link in ep_links:
         lambda driver: driver.find_element(By.TAG_NAME, "video").get_attribute("src")
     )
 
-    download_links[ep_name] = link
-    cache.set(anime_name, download_links)
+    download_links[ep_name] = cached_links[ep_name] = link
+cache.set(anime_name, cached_links)
 
 driver.quit()
 
