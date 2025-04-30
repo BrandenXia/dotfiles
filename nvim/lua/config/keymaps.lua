@@ -29,6 +29,7 @@ local added_keymaps = {
   { "v", "<S-A-j>", ":m '>+1<cr>gv=gv", { desc = "Move Down" } },
   { "v", "<S-A-k>", ":m '<-2<cr>gv=gv", { desc = "Move Up" } },
   { "i", "<Esc><BS>", "<C-w>", { desc = "Delete previous word" } },
+  { "i", "<C-f>", "<c-g>u<Esc>[s1z=`]a<c-g>u", { desc = "Fix previous spelling mistake" } },
 }
 
 map(vim.keymap.del, deleted_keymaps)
