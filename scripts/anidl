@@ -33,7 +33,7 @@ def ask_with_cancel(*args, **kargs) -> str:
         sys.exit(0)
 
 
-search_term = ask_with_cancel("Enter the search term")
+search_term = sys.argv[1] or ask_with_cancel("Enter the search term")
 
 # go to the website
 driver.get("https://qdm.plus/")
