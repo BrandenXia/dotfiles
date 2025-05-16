@@ -6,16 +6,16 @@ import os
 from pathlib import Path
 from collections.abc import Callable
 
-dirname = Path(__file__).parent.absolute()
+FILE_DIR = Path(__file__).parent.absolute()
 
-home_dir = Path.home()
-config_dir = home_dir / ".config"
+HOME_DIR = Path.home()
+CONFIG_DIR = HOME_DIR / ".config"
 
 
 class Helper:
     @staticmethod
     def link_to_config(target_name: str, dotfile_dir: Path):
-        os.symlink(dotfile_dir, config_dir / target_name)
+        os.symlink(dotfile_dir, CONFIG_DIR / target_name)
 
     @staticmethod
     def link_file(
@@ -35,7 +35,7 @@ class Helper:
 
     @staticmethod
     def add_to_zshrc(content: str | list[str]):
-        Helper.add_to_file(home_dir / ".zshrc", content)
+        Helper.add_to_file(HOME_DIR / ".zshrc", content)
 
 
 # edit to add more configs
@@ -71,7 +71,7 @@ def main():
         print("Target not found")
         sys.exit(1)
 
-    install_func(target, dirname / target)
+    install_func(target, FILE_DIR / target)
 
 
 if __name__ == "__main__":
