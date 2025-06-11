@@ -1,5 +1,6 @@
 # setopt
 setopt extended_history
+setopt HIST_IGNORE_SPACE
 
 # editor
 export EDITOR=nvim
@@ -14,6 +15,12 @@ alias la="ls -la"
 alias lg=lazygit
 alias sys=fastfetch
 alias ra=yazi
+
+function to-pngs() {
+  for filename in *.HEIC;
+    do magick "${filename}" "${filename%.*}.png";
+  done
+}
 
 # yazi
 function r() {
