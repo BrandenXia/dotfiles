@@ -17,8 +17,8 @@ alias sys=fastfetch
 alias ra=yazi
 
 function to-pngs() {
-  for filename in *.HEIC;
-    do magick "${filename}" "${filename%.*}.png";
+  for filename in *.HEIC; do
+    magick "${filename}" "${filename%.*}.png"
   done
 }
 
