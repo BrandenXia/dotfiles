@@ -1,0 +1,47 @@
+# window frame configurations
+set guioptions v
+set window-title-basename true
+set window-title-page true
+set statusbar-home-tilde true
+
+# set scrolling options
+set scroll-step 80
+
+# font size
+set font "CaskaydiaMono Nerd Font Mono 15"
+
+# clipboard configurations
+set selection-clipboard clipboard
+
+# mappings
+map <C-j> scroll half-down
+map <C-k> scroll half-up
+
+# color
+set notification-error-bg "#3e4452"
+set notification-error-fg "#c678dd"
+set notification-warning-bg "#3e4452"
+set notification-warning-fg "#c678dd"
+set notification-bg "#3e4452"
+set notification-fg "#c678dd"
+set completion-group-bg "#3e4452"
+set completion-group-fg "#e5c07b"
+set completion-bg "#282c34"
+set completion-fg "#abb2bf"
+set completion-highlight-bg "#e5c07b"
+set completion-highlight-fg "#3e4452"
+set inputbar-bg "#282c34"
+set inputbar-fg "#abb2bf"
+set statusbar-bg "#3e4452"
+set statusbar-fg "#abb2bf"
+set highlight-color "#e5c07b"
+set highlight-active-color "#e06c75"
+set default-bg "#3e4452"
+set default-fg "#abb2bf"
+set recolor-lightcolor "#282c34"
+set recolor-darkcolor "#abb2bf"
+set index-bg "#282c34"
+set index-fg "#abb2bf"
+set index-active-bg "#e5c07b"
+set index-active-fg "#3e4452"
+set recolor true

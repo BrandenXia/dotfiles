@@ -44,6 +44,7 @@ configs: dict[str, Callable[[str, Path], None]] = {
     "kitty": Helper.link_to_config,
     "yazi": Helper.link_to_config,
     "nvim": Helper.link_to_config,
+    "zathura": Helper.link_to_config,
     "zsh": lambda _, dotfile_dir: Helper.add_to_zshrc(
         [
             "# common config from dotfiles",
