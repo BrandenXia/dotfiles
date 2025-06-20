@@ -2,9 +2,10 @@
 
 import sys
 import os
+import functools
 
 from pathlib import Path
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 
 FILE_DIR = Path(__file__).parent.absolute()
 
@@ -38,14 +39,24 @@ class Helper:
         Helper.add_to_file(HOME_DIR / ".zshrc", content)
 
 
+type TargetName = str
+type DotfileDir = Path
+type InstallFunc = Callable[[TargetName, DotfileDir], None]
+type Configs = dict[TargetName | Iterable[TargetName], InstallFunc]
+
+
+def validate_configs(cfgs: Configs) -> bool:
+    keys = functools.reduce(
+        lambda pre, item: [*pre, item] if isinstance(item, str) else [*pre, *item],
+        cfgs.keys(),
+        [],
+    )
+    return len(set(keys)) == len(keys)
+
+
 # edit to add more configs
-configs: dict[str, Callable[[str, Path], None]] = {
-    "git": Helper.link_to_config,
-    "kitty": Helper.link_to_config,
-    "yazi": Helper.link_to_config,
-    "nvim": Helper.link_to_config,
-    "zathura": Helper.link_to_config,
-    "karabiner": Helper.link_to_config,
+configs: Configs = {
+    ("git", "kitty", "yazi", "nvim", "zathura", "karabiner"): Helper.link_to_config,
     "zsh": lambda _, dotfile_dir: Helper.add_to_zshrc(
         [
             "# common config from dotfiles",
@@ -61,6 +72,8 @@ configs: dict[str, Callable[[str, Path], None]] = {
 
 
 def main():
+    assert validate_configs(configs), "Invalid configs provided"
+
     try:
         target = sys.argv[1]
     except IndexError:
@@ -68,7 +81,12 @@ def main():
         sys.exit(1)
 
     try:
-        install_func = configs[target]
+        install_func = [
+            install_func
+            for target_name, install_func in configs.items()
+            if target
+            in (target_name if isinstance(target_name, Iterable) else (target_name))
+        ][0]
     except KeyError:
         print("Target not found")
         sys.exit(1)
