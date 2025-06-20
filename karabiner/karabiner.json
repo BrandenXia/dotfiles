@@ -4,22 +4,27 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "cmd+caps_lock -> esc",
+                        "description": "cmd+caps_lock -> esc on normal app, caps_lock -> esc on specific app",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "caps_lock",
-                                    "modifiers": {
-                                        "mandatory": ["left_command"],
-                                        "optional": ["any"]
-                                    }
+                                    "modifiers": { "mandatory": ["left_command"] }
                                 },
-                                "to": [
+                                "to": [{ "key_code": "escape" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
                                     {
-                                        "key_code": "escape",
-                                        "modifiers": []
+                                        "bundle_identifiers": [
+                                            "^net\\.kovidgoyal\\.kitty$"
+                                        ],
+                                        "type": "frontmost_application_if"
                                     }
                                 ],
+                                "from": { "key_code": "caps_lock" },
+                                "to": [{ "key_code": "escape" }],
                                 "type": "basic"
                             }
                         ]
