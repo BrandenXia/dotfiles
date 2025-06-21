@@ -13,30 +13,28 @@ HOME_DIR = Path.home()
 CONFIG_DIR = HOME_DIR / ".config"
 
 
-class Helper:
-    @staticmethod
-    def link_to_config(target_name: str, dotfile_dir: Path):
-        os.symlink(dotfile_dir, CONFIG_DIR / target_name)
+def link_to_config(target_name: str, dotfile_dir: Path):
+    os.symlink(dotfile_dir, CONFIG_DIR / target_name)
 
-    @staticmethod
-    def link_file(
-        file_name: str,
-        dotfile_dir: Path,
-        target_dir: Path,
-    ):
-        os.symlink(dotfile_dir / file_name, target_dir / file_name)
 
-    @staticmethod
-    def add_to_file(file_path: Path, content: str | list[str]):
-        with open(file_path, "a") as f:
-            f.write("\n")
-            content = content if isinstance(content, str) else "\n".join(content)
-            f.write(content)
-            f.write("\n")
+def link_file(
+    file_name: str,
+    dotfile_dir: Path,
+    target_dir: Path,
+):
+    os.symlink(dotfile_dir / file_name, target_dir / file_name)
 
-    @staticmethod
-    def add_to_zshrc(content: str | list[str]):
-        Helper.add_to_file(HOME_DIR / ".zshrc", content)
+
+def add_to_file(file_path: Path, content: str | list[str]):
+    with open(file_path, "a") as f:
+        f.write("\n")
+        content = content if isinstance(content, str) else "\n".join(content)
+        f.write(content)
+        f.write("\n")
+
+
+def add_to_zshrc(content: str | list[str]):
+    add_to_file(HOME_DIR / ".zshrc", content)
 
 
 type TargetName = str
@@ -56,8 +54,8 @@ def validate_configs(cfgs: Configs) -> bool:
 
 # edit to add more configs
 configs: Configs = {
-    ("git", "kitty", "yazi", "nvim", "zathura", "karabiner"): Helper.link_to_config,
-    "zsh": lambda _, dotfile_dir: Helper.add_to_zshrc(
+    ("git", "kitty", "yazi", "nvim", "zathura", "karabiner", "sioyek"): link_to_config,
+    "zsh": lambda _, dotfile_dir: add_to_zshrc(
         [
             "# common config from dotfiles",
             f"for file in {dotfile_dir.absolute()}/*.zsh; do",
@@ -65,7 +63,7 @@ configs: Configs = {
             "done",
         ],
     ),
-    "scripts": lambda _, dotfile_dir: Helper.add_to_zshrc(
+    "scripts": lambda _, dotfile_dir: add_to_zshrc(
         ["# scripts from dotfiles", f"export PATH=$PATH:{dotfile_dir.absolute()}"]
     ),
 }
