@@ -1,11 +1,35 @@
 [user]
 	name = BrandenXia
 	email = xxtbranden@outlook.com
+
 [core]
 	autocrlf = input
+  compression = 9
+  whitespace = error
+  preload-index = true
+  pager = delta
+
+[diff]
+  interHunkContext = 10
+
+[interactive]
+  diffFilter = delta --color-only
+
+[include]
+  path = ~/.config/git/catppuccin.gitconfig
+[delta]
+  navigate = true
+  features = catppuccin-mocha
+
+[merge]
+  conflictstyle = zdiff3
+
+[url "git@github.com:BrandenXia/"]
+  insteadOf = "bx:"
+[url "git@github.com:"]
+  insteadOf = "gh:"
+
 [credential "https://github.com"]
-	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
