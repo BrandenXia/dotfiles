@@ -54,7 +54,16 @@ def validate_configs(cfgs: Configs) -> bool:
 
 # edit to add more configs
 configs: Configs = {
-    ("git", "kitty", "yazi", "nvim", "zathura", "karabiner", "sioyek"): link_to_config,
+    (
+        "git",
+        "kitty",
+        "yazi",
+        "nvim",
+        "zathura",
+        "karabiner",
+        "sioyek",
+        "lazygit",
+    ): link_to_config,
     "zsh": lambda _, dotfile_dir: add_to_zshrc(
         [
             "# common config from dotfiles",

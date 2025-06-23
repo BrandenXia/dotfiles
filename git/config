@@ -9,6 +9,10 @@
   preload-index = true
   pager = delta
 
+[commit]
+  template = ~/.config/git/template
+  verbose = true
+
 [diff]
   interHunkContext = 10
 
