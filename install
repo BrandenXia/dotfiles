@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-import sys
 import os
-import functools
+import sys
 
-from pathlib import Path
 from collections.abc import Callable, Iterable
+from functools import reduce
+from pathlib import Path
 
 FILE_DIR = Path(__file__).parent.absolute()
 
@@ -44,7 +44,7 @@ type Configs = dict[TargetName | Iterable[TargetName], InstallFunc]
 
 
 def validate_configs(cfgs: Configs) -> bool:
-    keys = functools.reduce(
+    keys = reduce(
         lambda pre, item: [*pre, item] if isinstance(item, str) else [*pre, *item],
         cfgs.keys(),
         [],
