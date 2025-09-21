@@ -21,7 +21,7 @@ return {
     "chomosuke/typst-preview.nvim",
     ft = "typst",
     version = "1.*",
-    dependencies = { "williamboman/mason.nvim" },
+    dependencies = { "mason-org/mason.nvim" },
     opts = {
       invert_colors = "auto",
       dependencies_bin = {
