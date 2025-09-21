@@ -34,9 +34,11 @@
   insteadOf = "gh:"
 
 [credential "https://github.com"]
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !/opt/homebrew/bin/gh auth git-credential  # macos
+	helper = !/usr/bin/gh auth git-credential  # linux
 [credential "https://gist.github.com"]
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !/opt/homebrew/bin/gh auth git-credential  # macos
+	helper = !/usr/bin/gh auth git-credential  # linux
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
