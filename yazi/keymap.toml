@@ -303,3 +303,7 @@ keymap = [
 	# Filtering
 	{ on = "/", run = "filter", desc = "Apply a filter for the help items" },
 ]
+
+[[mgr.prepend_keymap]]
+on  = "y"
+run = [ "yank", 'plugin clipboard -- --action=copy' ]
