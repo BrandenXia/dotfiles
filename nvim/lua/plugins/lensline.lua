@@ -1,8 +1,13 @@
 return {
   "oribarilan/lensline.nvim",
-  tag = "1.0.0",
+  tag = "2.0.0",
   event = "LspAttach",
   config = function()
-    require("lensline").setup()
+    require("lensline").setup({
+      style = {
+        prefix = "",
+        placement = "inline",
+      },
+    })
   end,
 }
