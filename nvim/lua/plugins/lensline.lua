@@ -4,9 +4,14 @@ return {
   event = "LspAttach",
   config = function()
     require("lensline").setup({
-      style = {
-        prefix = "",
-        placement = "inline",
+      profiles = {
+        {
+          name = "default",
+          style = {
+            prefix = "",
+            placement = "inline",
+          },
+        },
       },
     })
   end,
