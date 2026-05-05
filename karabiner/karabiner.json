@@ -20,6 +20,7 @@
                                         "bundle_identifiers": [
                                             "^net\\.kovidgoyal\\.kitty$"
                                         ],
+                                        "file_paths": ["^/opt/homebrew/bin/neovide$"],
                                         "type": "frontmost_application_if"
                                     }
                                 ],
@@ -40,12 +41,12 @@
                     },
                     "simple_modifications": [
                         {
-                            "from": { "key_code": "left_option" },
-                            "to": [{ "key_code": "left_command" }]
-                        },
-                        {
                             "from": { "key_code": "left_command" },
                             "to": [{ "key_code": "left_option" }]
+                        },
+                        {
+                            "from": { "key_code": "left_option" },
+                            "to": [{ "key_code": "left_command" }]
                         }
                     ]
                 }
