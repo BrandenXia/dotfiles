@@ -18,9 +18,9 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^net\\.kovidgoyal\\.kitty$"
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^com\\.neovide\\.neovide$"
                                         ],
-                                        "file_paths": ["^/opt/homebrew/bin/neovide$"],
                                         "type": "frontmost_application_if"
                                     }
                                 ],
