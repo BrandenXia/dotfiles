@@ -1,14 +1,14 @@
 [[plugin.deps]]
 use = "Rolv-Apneseth/starship"
-rev = "a63550b"
-hash = "c2021386289a0cbb3e152a052f67c177"
+rev = "a837101"
+hash = "635b0feb9215772d22020eb0abf0bb34"
 
 [[plugin.deps]]
 use = "XYenon/clipboard"
-rev = "9089f90"
-hash = "e6efc609de1b617c7e8e98efd5286221"
+rev = "bda3e09"
+hash = "3c3e40d869946b5548815db7444e2a23"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-mocha"
-rev = "9276ffa"
-hash = "8d7799e4598ff079fa5ee5c770d9bc08"
+rev = "0670801"
+hash = "7dfe41c9c3d9be76da8a844263d0bbed"
