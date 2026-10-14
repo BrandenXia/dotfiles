@@ -1,7 +1,8 @@
 # magick
 function to-pngs() {
-  for filename in *.HEIC; do
+  for filename in (#i)*.HEIC; do
     magick "${filename}" "${filename%.*}.png"
+    echo "Converted ${filename} to ${filename%.*}.png"
   done
 }
 
